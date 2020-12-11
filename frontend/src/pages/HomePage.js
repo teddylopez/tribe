@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../actions/productActions";
+import data from "../data";
 import Product from "../components/Product";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import Banner from "./components/HomePage/Banner";
+import HomePageSection from "./components/HomePage/HomePageSection";
+import { useSelector, useDispatch } from "react-redux";
+import { listProducts } from "../actions/productActions";
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -16,6 +19,19 @@ function HomePage() {
 
   return (
     <div>
+      <Banner />
+      {loading ? (
+        <LoadingBox></LoadingBox>
+      ) : error ? (
+        <MessageBox variant="danger">{error}</MessageBox>
+      ) : (
+        <div className="row center">
+          {products.map((product) => (
+            <Product key={product._id} product={product}></Product>
+          ))}
+        </div>
+      )}
+      <HomePageSection />
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
