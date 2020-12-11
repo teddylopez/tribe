@@ -156,7 +156,7 @@ button {
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f8f8f8;
+  color: rgba(33, 33, 33, 0.98);
   cursor: pointer;
 }
 
@@ -177,7 +177,7 @@ button:hover {
 }
 button.primary {
   background-color: rgba(33, 33, 33, 0.98);
-  color: ;
+  color: white;
 }
 button.block {
   width: 100%;
@@ -214,4 +214,13 @@ img.large {
 
 .overlayed-z {
   z-index: 5;
+}
+
+.min-30 {
+  min-width: 30rem;
+}
+
+img.small {
+  max-width: 5rem;
+  width: 100%;
 }
