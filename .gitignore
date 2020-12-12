@@ -26,3 +26,5 @@ package-lock.json
 .cache/babel-loader
 /frontend/node_modules/.cache/babel-loader
 .eslintcache
+
+.env
