@@ -6,7 +6,8 @@ import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
 import SigninPage from "./pages/SigninPage";
 import RegisterPage from "./pages/RegisterPage";
-import ShippingPage from "./pages/ShippingScreen";
+import ShippingPage from "./pages/ShippingPage";
+import PaymentPage from "./pages/PaymentPage";
 import { signout } from "./actions/userActions";
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
           <Route path="/signin" component={SigninPage}></Route>
           <Route path="/register" component={RegisterPage}></Route>
           <Route path="/shipping" component={ShippingPage}></Route>
+          <Route path="/payment" component={PaymentPage}></Route>
           <Route path="/" component={HomePage} exact />
         </main>
         <footer className="row center">All right reserved</footer>
