@@ -34,7 +34,7 @@ function PaymentPage(props) {
               value="PayPal"
               name="paymentMethod"
               required
-              checked
+              defaultChecked
               // onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
             <label htmlFor="paypal">PayPal</label>
