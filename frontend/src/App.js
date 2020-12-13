@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ShippingPage from "./pages/ShippingPage";
 import PaymentPage from "./pages/PaymentPage";
 import OrderPage from "./pages/OrderPage";
+import ConfirmationPage from "./pages/ConfirmationPage";
 import { signout } from "./actions/userActions";
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
           <Route path="/shipping" component={ShippingPage}></Route>
           <Route path="/payment" component={PaymentPage}></Route>
           <Route path="/placeorder" component={OrderPage}></Route>
+          <Route path="/order/:id" component={ConfirmationPage}></Route>
           <Route path="/" component={HomePage} exact />
         </main>
         <footer className="row center">All right reserved</footer>
