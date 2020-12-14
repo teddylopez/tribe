@@ -10,6 +10,7 @@ import ShippingPage from "./pages/ShippingPage";
 import PaymentPage from "./pages/PaymentPage";
 import OrderPage from "./pages/OrderPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
+import OrderHistoryPage from "./pages/OrderHistoryPage";
 import { signout } from "./actions/userActions";
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
                   </Link>
                   <ul className="dropdown-content">
                     <li>
+                      <Link to="/orderhistory">Order History</Link>
+                    </li>
+                    <li>
                       <Link to="#signout" onClick={signoutHandler}>
                         Sign Out
                       </Link>
@@ -68,6 +72,7 @@ function App() {
           <Route path="/payment" component={PaymentPage}></Route>
           <Route path="/placeorder" component={OrderPage}></Route>
           <Route path="/order/:id" component={ConfirmationPage}></Route>
+          <Route path="/orderhistory" component={OrderHistoryPage}></Route>
           <Route path="/" component={HomePage} exact />
         </main>
         <footer className="row center">All right reserved</footer>

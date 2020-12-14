@@ -5,6 +5,7 @@ import {
   orderCreateReducer,
   orderDetailsReducer,
   orderPayReducer,
+  orderHistoryReducer,
 } from "./reducers/orderReducers";
 import { savePaymentMethod } from "./actions/cartActions";
 import {
@@ -42,6 +43,7 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderHistory: orderHistoryReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
