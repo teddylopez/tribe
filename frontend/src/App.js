@@ -11,6 +11,8 @@ import PaymentPage from "./pages/PaymentPage";
 import OrderPage from "./pages/OrderPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import OrderHistoryPage from "./pages/OrderHistoryPage";
+import UserProfilePage from "./pages/UserProfilePage";
+import PrivateRoute from "./components/PrivateRoute";
 import { signout } from "./actions/userActions";
 
 function App() {
@@ -48,6 +50,9 @@ function App() {
                   </Link>
                   <ul className="dropdown-content">
                     <li>
+                      <Link to="/profile">User Profile</Link>
+                    </li>
+                    <li>
                       <Link to="/orderhistory">Order History</Link>
                     </li>
                     <li>
@@ -73,6 +78,10 @@ function App() {
           <Route path="/placeorder" component={OrderPage}></Route>
           <Route path="/order/:id" component={ConfirmationPage}></Route>
           <Route path="/orderhistory" component={OrderHistoryPage}></Route>
+          <PrivateRoute
+            path="/profile"
+            component={UserProfilePage}
+          ></PrivateRoute>
           <Route path="/" component={HomePage} exact />
         </main>
         <footer className="row center">All right reserved</footer>
