@@ -5,6 +5,7 @@ import { signout } from "./actions/userActions";
 import AdminRoute from "./components/AdminRoute";
 import CartPage from "./pages/CartPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
+import EditProductPage from "./pages/EditProductPage";
 import HomePage from "./pages/HomePage";
 import OrderHistoryPage from "./pages/OrderHistoryPage";
 import OrderPage from "./pages/OrderPage";
@@ -94,6 +95,7 @@ function App() {
         <main>
           <Route path="/cart/:id?" component={CartPage}></Route>
           <Route path="/product/:id" component={ProductPage} exact />
+          <Route path="/product/:id/edit" component={EditProductPage} exact />
           <Route path="/signin" component={SigninPage}></Route>
           <Route path="/register" component={RegisterPage}></Route>
           <Route path="/shipping" component={ShippingPage}></Route>
