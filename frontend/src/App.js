@@ -1,19 +1,21 @@
-import React from "react";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/ProductPage";
+import React from "react";
+import { signout } from "./actions/userActions";
+import AdminRoute from "./components/AdminRoute";
 import CartPage from "./pages/CartPage";
-import SigninPage from "./pages/SigninPage";
+import ConfirmationPage from "./pages/ConfirmationPage";
+import HomePage from "./pages/HomePage";
+import OrderHistoryPage from "./pages/OrderHistoryPage";
+import OrderPage from "./pages/OrderPage";
+import PaymentPage from "./pages/PaymentPage";
+import PrivateRoute from "./components/PrivateRoute";
+import ProductListPage from "./pages/ProductListPage";
+import ProductPage from "./pages/ProductPage";
 import RegisterPage from "./pages/RegisterPage";
 import ShippingPage from "./pages/ShippingPage";
-import PaymentPage from "./pages/PaymentPage";
-import OrderPage from "./pages/OrderPage";
-import ConfirmationPage from "./pages/ConfirmationPage";
-import OrderHistoryPage from "./pages/OrderHistoryPage";
+import SigninPage from "./pages/SigninPage";
 import UserProfilePage from "./pages/UserProfilePage";
-import PrivateRoute from "./components/PrivateRoute";
-import { signout } from "./actions/userActions";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -103,6 +105,7 @@ function App() {
             path="/profile"
             component={UserProfilePage}
           ></PrivateRoute>
+          <AdminRoute path="/productlist" component={ProductListPage} />
           <Route path="/" component={HomePage} exact />
         </main>
         <footer className="row center">All right reserved</footer>
