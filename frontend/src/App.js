@@ -93,7 +93,7 @@ function App() {
         </header>
         <main>
           <Route path="/cart/:id?" component={CartPage}></Route>
-          <Route path="/product/:id" component={ProductPage} />
+          <Route path="/product/:id" component={ProductPage} exact />
           <Route path="/signin" component={SigninPage}></Route>
           <Route path="/register" component={RegisterPage}></Route>
           <Route path="/shipping" component={ShippingPage}></Route>
