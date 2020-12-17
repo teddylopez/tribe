@@ -1,24 +1,36 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
-import { listOrders } from "../actions/orderActions";
+import { ADMIN_DELETE_ORDER_RESET } from "../constants/orderConstants";
+import { deleteOrder, listOrders } from "../actions/orderActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
 function AdminOrdersPage(props) {
   const orderList = useSelector((state) => state.adminOrdersList);
   const { loading, error, orders } = orderList;
+  const deletedOrder = useSelector((state) => state.adminDeleteOrder);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = deletedOrder;
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch({ type: ADMIN_DELETE_ORDER_RESET });
     dispatch(listOrders());
-  }, [dispatch]);
+  }, [dispatch, successDelete]);
 
   const deleteHandler = (order) => {
-    // TODO: delete handler
+    if (window.confirm("Are you sure you want to delete this order?")) {
+      dispatch(deleteOrder(order._id));
+    }
   };
 
   return (
     <div>
       <h1>Orders</h1>
+      {loadingDelete && <LoadingBox></LoadingBox>}
+      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -62,7 +74,7 @@ function AdminOrdersPage(props) {
                   <button
                     type="button"
                     className="small"
-                    onclick={() => deleteHandler(order)}
+                    onClick={() => deleteHandler(order)}
                   >
                     Delete
                   </button>

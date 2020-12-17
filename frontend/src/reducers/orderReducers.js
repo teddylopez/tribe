@@ -1,4 +1,8 @@
 import {
+  ADMIN_DELETE_ORDER_FAIL,
+  ADMIN_DELETE_ORDER_REQUEST,
+  ADMIN_DELETE_ORDER_RESET,
+  ADMIN_DELETE_ORDER_SUCCESS,
   ADMIN_LIST_ORDERS_FAIL,
   ADMIN_LIST_ORDERS_REQUEST,
   ADMIN_LIST_ORDERS_SUCCESS,
@@ -82,6 +86,21 @@ export const adminOrdersReducer = (state = { orders: [] }, action) => {
       return { loading: false, orders: action.payload };
     case ADMIN_LIST_ORDERS_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const adminDeleteOrdersReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_DELETE_ORDER_REQUEST:
+      return { loading: true };
+    case ADMIN_DELETE_ORDER_SUCCESS:
+      return { loading: false, success: true };
+    case ADMIN_DELETE_ORDER_FAIL:
+      return { loading: false, error: action.payload };
+    case ADMIN_DELETE_ORDER_RESET:
+      return {};
     default:
       return state;
   }

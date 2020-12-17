@@ -1,5 +1,9 @@
 import Axios from "axios";
+
 import {
+  ADMIN_DELETE_ORDER_FAIL,
+  ADMIN_DELETE_ORDER_REQUEST,
+  ADMIN_DELETE_ORDER_SUCCESS,
   ADMIN_LIST_ORDERS_FAIL,
   ADMIN_LIST_ORDERS_REQUEST,
   ADMIN_LIST_ORDERS_SUCCESS,
@@ -123,5 +127,24 @@ export const listOrders = () => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: ADMIN_LIST_ORDERS_FAIL, payload: message });
+  }
+};
+
+export const deleteOrder = (orderId) => async (dispatch, getState) => {
+  dispatch({ type: ADMIN_DELETE_ORDER_REQUEST, payload: orderId });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = Axios.delete(`/api/orders/${orderId}`, {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type: ADMIN_DELETE_ORDER_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: ADMIN_DELETE_ORDER_FAIL, payload: message });
   }
 };
