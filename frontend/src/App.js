@@ -41,7 +41,7 @@ function App() {
           <div>
             <div className="row">
               <Link to="/cart">
-                Cart
+                <i className="fa fa-shopping-cart" aria-hidden="true"></i>
                 {cartItems.length > 0 && (
                   <span className="badge">{cartItems.length}</span>
                 )}
