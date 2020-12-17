@@ -1,19 +1,22 @@
 import Axios from "axios";
-import { CART_EMPTY } from "../constants/cartConstants";
 import {
+  ADMIN_LIST_ORDERS_FAIL,
+  ADMIN_LIST_ORDERS_REQUEST,
+  ADMIN_LIST_ORDERS_SUCCESS,
+  ORDERS_LIST_FAIL,
+  ORDERS_LIST_REQUEST,
+  ORDERS_LIST_SUCCESS,
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
+  ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
-  ORDER_DETAILS_FAIL,
-  ORDER_PAY_REQUEST,
   ORDER_PAY_FAIL,
+  ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
-  ORDERS_LIST_REQUEST,
-  ORDERS_LIST_SUCCESS,
-  ORDERS_LIST_FAIL,
 } from "../constants/orderConstants";
+import { CART_EMPTY } from "../constants/cartConstants";
 
 export const createOrder = (order) => async (dispatch, getState) => {
   dispatch({ type: ORDER_CREATE_REQUEST, payload: order });
@@ -99,5 +102,26 @@ export const listOrderHistory = () => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: ORDERS_LIST_FAIL, payload: message });
+  }
+};
+
+export const listOrders = () => async (dispatch, getState) => {
+  dispatch({ type: ADMIN_LIST_ORDERS_REQUEST });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.get("/api/orders", {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch({ type: ADMIN_LIST_ORDERS_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: ADMIN_LIST_ORDERS_FAIL, payload: message });
   }
 };

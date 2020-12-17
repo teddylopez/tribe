@@ -2,6 +2,7 @@ import { BrowserRouter, Link, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import { signout } from "./actions/userActions";
+import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminRoute from "./components/AdminRoute";
 import CartPage from "./pages/CartPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
@@ -108,6 +109,10 @@ function App() {
             component={UserProfilePage}
           ></PrivateRoute>
           <AdminRoute path="/productlist" component={ProductListPage} />
+          <AdminRoute
+            path="/orderlist"
+            component={AdminOrdersPage}
+          ></AdminRoute>
           <Route path="/" component={HomePage} exact />
         </main>
         <footer className="row center">All right reserved</footer>
