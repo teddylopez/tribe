@@ -4,6 +4,9 @@ import {
   ADMIN_DELETE_ORDER_FAIL,
   ADMIN_DELETE_ORDER_REQUEST,
   ADMIN_DELETE_ORDER_SUCCESS,
+  ADMIN_DELIVER_ORDER_FAIL,
+  ADMIN_DELIVER_ORDER_REQUEST,
+  ADMIN_DELIVER_ORDER_SUCCESS,
   ADMIN_LIST_ORDERS_FAIL,
   ADMIN_LIST_ORDERS_REQUEST,
   ADMIN_LIST_ORDERS_SUCCESS,
@@ -146,5 +149,31 @@ export const deleteOrder = (orderId) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: ADMIN_DELETE_ORDER_FAIL, payload: message });
+  }
+};
+
+export const deliverOrder = (orderId) => async (dispatch, getState) => {
+  dispatch({
+    type: ADMIN_DELIVER_ORDER_REQUEST,
+    payload: { orderId },
+  });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = Axios.put(
+      `/api/orders/${orderId}/deliver`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
+    );
+    dispatch({ type: ADMIN_DELIVER_ORDER_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: ADMIN_DELIVER_ORDER_FAIL, payload: message });
   }
 };

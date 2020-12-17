@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { PayPalButton } from "react-paypal-button-v2";
 import { Link } from "react-router-dom";
-import { detailsOrder, payOrder } from "../actions/orderActions";
+import { PayPalButton } from "react-paypal-button-v2";
+import { useDispatch, useSelector } from "react-redux";
+import Axios from "axios";
+import React, { useEffect, useState } from "react";
+
+import {
+  ADMIN_DELIVER_ORDER_RESET,
+  ORDER_PAY_RESET,
+} from "../constants/orderConstants";
+import { deliverOrder, detailsOrder, payOrder } from "../actions/orderActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-import { ORDER_PAY_RESET } from "../constants/orderConstants";
-import Axios from "axios";
 
 function ConfirmationPage(props) {
   const orderId = props.match.params.id;
@@ -14,11 +18,19 @@ function ConfirmationPage(props) {
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
   const orderPay = useSelector((state) => state.orderPay);
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
   const {
     loading: loadingPay,
     error: errorPay,
     success: successPay,
   } = orderPay;
+  const orderDeliver = useSelector((state) => state.adminDeliverOrder);
+  const {
+    loading: loadingDeliver,
+    error: errorDeliver,
+    success: successDeliver,
+  } = orderDeliver;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,8 +45,14 @@ function ConfirmationPage(props) {
       };
       document.body.appendChild(script);
     };
-    if (!order || successPay || (order && order._id !== orderId)) {
+    if (
+      !order ||
+      successPay ||
+      successDeliver ||
+      (order && order._id !== orderId)
+    ) {
       dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ADMIN_DELIVER_ORDER_RESET });
       dispatch(detailsOrder(orderId));
     } else {
       if (!order.isPaid) {
@@ -45,10 +63,14 @@ function ConfirmationPage(props) {
         }
       }
     }
-  }, [dispatch, order, orderId, sdkReady, successPay]);
+  }, [dispatch, order, orderId, sdkReady, successPay, successDeliver]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
+  };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order._id));
   };
 
   return loading ? (
@@ -176,6 +198,21 @@ function ConfirmationPage(props) {
                       ></PayPalButton>
                     </>
                   )}
+                </li>
+              )}
+              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                <li>
+                  {loadingDeliver && <LoadingBox></LoadingBox>}
+                  {errorDeliver && (
+                    <MessageBox variant="danger">{errorDeliver}</MessageBox>
+                  )}
+                  <button
+                    type="button"
+                    className="primary block"
+                    onClick={deliverHandler}
+                  >
+                    Deliver Order
+                  </button>
                 </li>
               )}
             </ul>

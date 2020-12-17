@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 
 import {
   adminDeleteOrdersReducer,
+  adminDeliverOrderReducer,
   adminOrdersReducer,
   orderCreateReducer,
   orderDetailsReducer,
@@ -58,6 +59,7 @@ const reducer = combineReducers({
   productDelete: productDeleteReducer,
   adminOrdersList: adminOrdersReducer,
   adminDeleteOrder: adminDeleteOrdersReducer,
+  adminDeliverOrder: adminDeliverOrderReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
