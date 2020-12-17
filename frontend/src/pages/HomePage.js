@@ -43,6 +43,7 @@ function HomePage() {
           ))}
         </div>
       )}
+      <HomePageSection />
     </div>
   );
 }
