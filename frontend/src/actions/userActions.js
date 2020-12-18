@@ -1,5 +1,9 @@
 import Axios from "axios";
+
 import {
+  ADMIN_LIST_USERS_FAIL,
+  ADMIN_LIST_USERS_REQUEST,
+  ADMIN_LIST_USERS_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -10,10 +14,9 @@ import {
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
   USER_SIGNOUT,
+  USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
-  USER_UPDATE_PROFILE_RESET,
-  USER_UPDATE_PROFILE_FAIL,
 } from "../constants/userConstants";
 
 export const signin = (email, password) => async (dispatch) => {
@@ -99,5 +102,25 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: USER_UPDATE_PROFILE_FAIL, payload: message });
+  }
+};
+
+export const listUsers = (user) => async (dispatch, getState) => {
+  dispatch({ type: ADMIN_LIST_USERS_REQUEST, payload: user });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.get(`/api/users/`, {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type: ADMIN_LIST_USERS_SUCCESS, payload: data });
+    localStorage.setItem("userInfo", JSON.stringify(data));
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: ADMIN_LIST_USERS_FAIL, payload: message });
   }
 };

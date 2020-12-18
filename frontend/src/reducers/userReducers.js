@@ -1,4 +1,7 @@
 import {
+  ADMIN_LIST_USERS_FAIL,
+  ADMIN_LIST_USERS_REQUEST,
+  ADMIN_LIST_USERS_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -66,6 +69,19 @@ export const updateUserProfileReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case USER_UPDATE_PROFILE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const userListReducer = (state = { loading: true }, action) => {
+  switch (action.type) {
+    case ADMIN_LIST_USERS_REQUEST:
+      return { loading: true };
+    case ADMIN_LIST_USERS_SUCCESS:
+      return { loading: false, users: action.payload };
+    case ADMIN_LIST_USERS_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

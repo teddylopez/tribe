@@ -4,6 +4,7 @@ import React from "react";
 import { signout } from "./actions/userActions";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminRoute from "./components/AdminRoute";
+import AdminUsersPage from "./pages/AdminUsersPage";
 import CartPage from "./pages/CartPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import EditProductPage from "./pages/EditProductPage";
@@ -113,6 +114,7 @@ function App() {
             path="/orderlist"
             component={AdminOrdersPage}
           ></AdminRoute>
+          <AdminRoute path="/userlist" component={AdminUsersPage}></AdminRoute>
           <Route path="/" component={HomePage} exact />
         </main>
         <footer className="row center">All right reserved</footer>
