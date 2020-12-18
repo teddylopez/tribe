@@ -1,6 +1,9 @@
 import Axios from "axios";
 
 import {
+  ADMIN_DELETE_USER_FAIL,
+  ADMIN_DELETE_USER_REQUEST,
+  ADMIN_DELETE_USER_SUCCESS,
   ADMIN_LIST_USERS_FAIL,
   ADMIN_LIST_USERS_REQUEST,
   ADMIN_LIST_USERS_SUCCESS,
@@ -122,5 +125,24 @@ export const listUsers = (user) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: ADMIN_LIST_USERS_FAIL, payload: message });
+  }
+};
+
+export const deleteUser = (userId) => async (dispatch, getState) => {
+  dispatch({ type: ADMIN_DELETE_USER_REQUEST, payload: userId });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.delete(`/api/users/${userId}`, {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type: ADMIN_DELETE_USER_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: ADMIN_DELETE_USER_FAIL, payload: message });
   }
 };
