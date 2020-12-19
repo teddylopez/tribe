@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userDetails, updateUserProfile } from "../actions/userActions";
+import { detailsUser, updateUserProfile } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
@@ -25,7 +25,7 @@ function UserProfilePage() {
   useEffect(() => {
     if (!user) {
       dispatch({ type: USER_UPDATE_PROFILE_RESET });
-      dispatch(userDetails(userInfo._id));
+      dispatch(detailsUser(userInfo._id));
     } else {
       setName(user.name);
       setEmail(user.email);

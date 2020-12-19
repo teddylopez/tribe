@@ -2,6 +2,7 @@ import { BrowserRouter, Link, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import { signout } from "./actions/userActions";
+import AdminEditUserPage from "./pages/AdminEditUserPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminRoute from "./components/AdminRoute";
 import AdminUsersPage from "./pages/AdminUsersPage";
@@ -113,6 +114,10 @@ function App() {
           <AdminRoute
             path="/orderlist"
             component={AdminOrdersPage}
+          ></AdminRoute>
+          <AdminRoute
+            path="/user/:id/edit"
+            component={AdminEditUserPage}
           ></AdminRoute>
           <AdminRoute path="/userlist" component={AdminUsersPage}></AdminRoute>
           <Route path="/" component={HomePage} exact />
