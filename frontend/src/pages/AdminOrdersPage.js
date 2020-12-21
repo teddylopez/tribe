@@ -6,6 +6,7 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
 function AdminOrdersPage(props) {
+  const sellerMode = props.match.path.indexOf("/seller") >= 0;
   const orderList = useSelector((state) => state.adminOrdersList);
   const { loading, error, orders } = orderList;
   const deletedOrder = useSelector((state) => state.adminDeleteOrder);
@@ -14,11 +15,15 @@ function AdminOrdersPage(props) {
     error: errorDelete,
     success: successDelete,
   } = deletedOrder;
+
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: ADMIN_DELETE_ORDER_RESET });
-    dispatch(listOrders());
-  }, [dispatch, successDelete]);
+    dispatch(listOrders({ seller: sellerMode ? userInfo._id : "" }));
+  }, [dispatch, sellerMode, successDelete, userInfo._id]);
 
   const deleteHandler = (order) => {
     if (window.confirm("Are you sure you want to delete this order?")) {

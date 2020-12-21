@@ -7,7 +7,7 @@ function Banner() {
       <div className="banner-wrapper">
         <div className="hero-banner">
           <h1>Independent Vendors and Artists</h1>
-          <h2>Proudly made in the USA</h2>
+          <h2>American Made Goods</h2>
         </div>
       </div>
       <div className="sub-header overlayed-z">

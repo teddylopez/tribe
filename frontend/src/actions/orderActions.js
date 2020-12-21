@@ -112,13 +112,13 @@ export const listOrderHistory = () => async (dispatch, getState) => {
   }
 };
 
-export const listOrders = () => async (dispatch, getState) => {
+export const listOrders = ({ seller = "" }) => async (dispatch, getState) => {
   dispatch({ type: ADMIN_LIST_ORDERS_REQUEST });
   const {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.get("/api/orders", {
+    const { data } = await Axios.get(`/api/orders?seller=${seller}`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },

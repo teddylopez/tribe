@@ -13,6 +13,7 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
 function ProductListPage(props) {
+  const sellerMode = props.match.path.indexOf("/seller") >= 0;
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
   const productCreate = useSelector((state) => state.productCreate);
@@ -30,6 +31,9 @@ function ProductListPage(props) {
     success: successDelete,
   } = productDelete;
 
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (successCreate) {
@@ -39,7 +43,7 @@ function ProductListPage(props) {
     if (successDelete) {
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
-    dispatch(listProducts());
+    dispatch(listProducts({ seller: sellerMode ? userInfo._id : "" }));
   }, [createdProduct, dispatch, props.history, successCreate, successDelete]);
 
   const deleteHandler = (product) => {

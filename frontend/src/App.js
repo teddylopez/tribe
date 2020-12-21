@@ -1,6 +1,7 @@
 import { BrowserRouter, Link, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
+
 import { signout } from "./actions/userActions";
 import AdminEditUserPage from "./pages/AdminEditUserPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
@@ -17,6 +18,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import ProductListPage from "./pages/ProductListPage";
 import ProductPage from "./pages/ProductPage";
 import RegisterPage from "./pages/RegisterPage";
+import SellerRoute from "./components/SellerRoute";
 import ShippingPage from "./pages/ShippingPage";
 import SigninPage from "./pages/SigninPage";
 import UserProfilePage from "./pages/UserProfilePage";
@@ -71,6 +73,21 @@ function App() {
               ) : (
                 <Link to="/signin">Sign In</Link>
               )}
+              {userInfo && userInfo.isSeller && (
+                <div className="dropdown">
+                  <Link to="#admin">
+                    Seller <i className="fa fa-caret-down"></i>
+                  </Link>
+                  <ul className="dropdown-content">
+                    <li>
+                      <Link to="/productlist/seller">Products</Link>
+                    </li>
+                    <li>
+                      <Link to="/orderlist/seller">Orders</Link>
+                    </li>
+                  </ul>
+                </div>
+              )}
               {userInfo && userInfo.isAdmin && (
                 <div className="dropdown">
                   <Link to="#admin">
@@ -110,15 +127,25 @@ function App() {
             path="/profile"
             component={UserProfilePage}
           ></PrivateRoute>
-          <AdminRoute path="/productlist" component={ProductListPage} />
+          <AdminRoute path="/productlist" component={ProductListPage} exact />
           <AdminRoute
             path="/orderlist"
             component={AdminOrdersPage}
+            exact
           ></AdminRoute>
           <AdminRoute
             path="/user/:id/edit"
             component={AdminEditUserPage}
           ></AdminRoute>
+          <SellerRoute
+            path="/productlist/seller"
+            component={ProductListPage}
+            exact
+          ></SellerRoute>
+          <SellerRoute
+            path="/orderlist/seller"
+            component={AdminOrdersPage}
+          ></SellerRoute>
           <AdminRoute path="/userlist" component={AdminUsersPage}></AdminRoute>
           <Route path="/" component={HomePage} exact />
         </main>
