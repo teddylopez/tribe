@@ -1,7 +1,6 @@
 import { BrowserRouter, Link, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
-
 import { signout } from "./actions/userActions";
 import AdminEditUserPage from "./pages/AdminEditUserPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
@@ -18,6 +17,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import ProductListPage from "./pages/ProductListPage";
 import ProductPage from "./pages/ProductPage";
 import RegisterPage from "./pages/RegisterPage";
+import SellerPage from "./pages/SellerPage";
 import SellerRoute from "./components/SellerRoute";
 import ShippingPage from "./pages/ShippingPage";
 import SigninPage from "./pages/SigninPage";
@@ -113,6 +113,7 @@ function App() {
           </div>
         </header>
         <main>
+          <Route path="/seller/:id" component={SellerPage}></Route>
           <Route path="/cart/:id?" component={CartPage}></Route>
           <Route path="/product/:id" component={ProductPage} exact />
           <Route path="/product/:id/edit" component={EditProductPage} exact />
