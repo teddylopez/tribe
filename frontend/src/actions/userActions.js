@@ -7,6 +7,9 @@ import {
   ADMIN_LIST_USERS_FAIL,
   ADMIN_LIST_USERS_REQUEST,
   ADMIN_LIST_USERS_SUCCESS,
+  LIST_TOP_SELLERS_FAIL,
+  LIST_TOP_SELLERS_REQUEST,
+  LIST_TOP_SELLERS_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -166,5 +169,19 @@ export const deleteUser = (userId) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: ADMIN_DELETE_USER_FAIL, payload: message });
+  }
+};
+
+export const listTopSellers = (user) => async (dispatch) => {
+  try {
+    const { data } = await Axios.get(`/api/users/top-sellers`);
+    dispatch({ type: LIST_TOP_SELLERS_SUCCESS, payload: data });
+    localStorage.setItem("userInfo", JSON.stringify(data));
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: LIST_TOP_SELLERS_FAIL, payload: message });
   }
 };

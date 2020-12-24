@@ -6,6 +6,9 @@ import {
   ADMIN_LIST_USERS_FAIL,
   ADMIN_LIST_USERS_REQUEST,
   ADMIN_LIST_USERS_SUCCESS,
+  LIST_TOP_SELLERS_FAIL,
+  LIST_TOP_SELLERS_REQUEST,
+  LIST_TOP_SELLERS_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_RESET,
@@ -123,6 +126,19 @@ export const userDeleteReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case ADMIN_DELETE_USER_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const topSellersReducer = (state = { loading: true }, action) => {
+  switch (action.type) {
+    case LIST_TOP_SELLERS_REQUEST:
+      return { loading: true };
+    case LIST_TOP_SELLERS_SUCCESS:
+      return { loading: false, users: action.payload };
+    case LIST_TOP_SELLERS_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

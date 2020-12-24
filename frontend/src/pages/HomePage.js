@@ -1,20 +1,28 @@
+import { useSelector, useDispatch } from "react-redux";
 import React, { useEffect } from "react";
-import data from "../data";
-import Product from "../components/Product";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
+import { listProducts } from "../actions/productActions";
+import { listTopSellers } from "../actions/userActions";
 import Banner from "./components/HomePage/Banner";
 import HomePageSection from "./components/HomePage/HomePageSection";
-import { useSelector, useDispatch } from "react-redux";
-import { listProducts } from "../actions/productActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import Product from "../components/Product";
 
 function HomePage() {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
+  const topSellers = useSelector((state) => state.topSellers);
+  const {
+    loading: loadingSellers,
+    error: errorSellers,
+    users: sellers,
+  } = topSellers;
+
   useEffect(() => {
     dispatch(listProducts({}));
+    dispatch(listTopSellers());
   }, [dispatch]);
 
   return (
