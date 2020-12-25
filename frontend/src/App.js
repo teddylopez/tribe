@@ -1,6 +1,7 @@
 import { BrowserRouter, Link, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
+
 import { signout } from "./actions/userActions";
 import AdminEditUserPage from "./pages/AdminEditUserPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
@@ -17,6 +18,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import ProductListPage from "./pages/ProductListPage";
 import ProductPage from "./pages/ProductPage";
 import RegisterPage from "./pages/RegisterPage";
+import SearchBox from "./components/SearchBox";
+import SearchPage from "./pages/SearchPage";
 import SellerPage from "./pages/SellerPage";
 import SellerRoute from "./components/SellerRoute";
 import ShippingPage from "./pages/ShippingPage";
@@ -42,6 +45,13 @@ function App() {
             <Link className="brand" to="/">
               tribe
             </Link>
+          </div>
+          <div>
+            <Route
+              render={({ history }) => (
+                <SearchBox history={history}></SearchBox>
+              )}
+            ></Route>
           </div>
           <div>
             <div className="row">
@@ -124,6 +134,11 @@ function App() {
           <Route path="/placeorder" component={OrderPage}></Route>
           <Route path="/order/:id" component={ConfirmationPage}></Route>
           <Route path="/orderhistory" component={OrderHistoryPage}></Route>
+          <Route
+            path="/search/name/:name?"
+            component={SearchPage}
+            exact
+          ></Route>
           <PrivateRoute
             path="/profile"
             component={UserProfilePage}
