@@ -1,0 +1,192 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+/* This file is for your main application CSS */
+@import "./phoenix.css";
+
+/.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.alert p {
+  margin-bottom: 0;
+}
+
+.alert:empty {
+  display: none;
+}
+
+.invalid-feedback {
+  color: #a94442;
+  display: block;
+  margin: -1rem 0 2rem;
+}
+
+.banner-wrapper {
+  background: rgb(34, 193, 195);
+  // background-image: linear-gradient(to right, #fe667d, #ffa375);
+  background: linear-gradient(250deg, rgb(254, 102, 125), rgb(255, 163, 117)) 0 0 / 600% 600%;
+  animation: 20s ease 20s infinite normal none running Fire;
+}
+
+.banner-overlay {
+  position: relative;
+  top: -40px;
+}
+
+.sub-header {
+  position: relative;
+  top: -60px;
+  height: 250px;
+  padding: 0 12%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.header-highlight {
+  position: relative;
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid rgba(33, 33, 33, 0.98);
+  z-index: 5;
+}
+
+@media (max-width: 900px) {
+  .sub-header {
+    display: none;
+  }
+
+  h1,
+  h2 {
+    padding: 10px;
+  }
+
+  .banner {
+    height: 200px;
+  }
+}
+
+.brand {
+  font-family: 'Megrim', cursive;
+}
+
+.section-container {
+  height: 430px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.thin-container-box {
+  position: absolute;
+  height: 400px;
+  width: 95%;
+  box-shadow: 0 4px 20px rgba(34, 34, 34, 0.15);
+  display: flex;
+}
+
+.z-box {
+  z-index: 5;
+}
+
+.inner-box-1 {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.inner-box-2 {
+  flex: 1;
+  padding: 10px;
+}
+
+.inner-box-row {
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #e0e0e0;
+}
+
+.inner-box-h1 {
+  font-size: 45px;
+}
+
+.inner-box-row-box {
+  border: 1px solid white;
+  width: 30%;
+  padding: 5px;
+  /* justify-content: space-between; */
+}
+
+.box-wide {
+  padding: 5px;
+  flex: 2;
+}
+
+@-webkit-keyframes Fire {
+  0% {
+    background-position: 0 76%;
+  }
+
+  50% {
+    background-position: 100% 25%;
+  }
+
+  100% {
+    background-position: 0 76%;
+  }
+}
+
+@-moz-keyframes Fire {
+  0% {
+    background-position: 0 76%;
+  }
+
+  50% {
+    background-position: 100% 25%;
+  }
+
+  100% {
+    background-position: 0 76%;
+  }
+}
+
+@keyframes Fire {
+  0% {
+    background-position: 0 76%;
+  }
+
+  50% {
+    background-position: 100% 25%;
+  }
+
+  100% {
+    background-position: 0 76%;
+  }
+}
